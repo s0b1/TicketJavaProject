@@ -26,3 +26,11 @@ CREATE TABLE ticket (
                         customer_id BIGINT REFERENCES customer(id),
                         event_id BIGINT REFERENCES event(id)
 );
+
+CREATE TABLE app_user (
+                          id SERIAL PRIMARY KEY,
+                          username VARCHAR(255) NOT NULL UNIQUE,
+                          password VARCHAR(255) NOT NULL,
+                          role VARCHAR(20) NOT NULL CHECK (role IN ('ROLE_ADMIN', 'ROLE_USER'))
+);
+

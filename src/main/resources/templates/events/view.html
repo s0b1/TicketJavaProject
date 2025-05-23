@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Details</title>
+</head>
+<body>
+
+<h2>Event Details</h2>
+
+<div th:if="${event}">
+    <p><strong>Name:</strong> <span th:text="${event.name}">Event Name</span></p>
+    <p><strong>Date:</strong> <span th:text="${event.eventDate}">Event Date</span></p>
+
+    <h3>Place</h3>
+    <p><strong>Name:</strong> <span th:text="${event.place.name}">Place Name</span></p>
+    <p><strong>Address:</strong> <span th:text="${event.place.address}">Place Address</span></p>
+
+    <h3>Tickets</h3>
+    <p>Total Tickets: <span th:text="${#lists.size(event.tickets)}">0</span></p>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Cost</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ticket : ${event.tickets}">
+            <td th:text="${ticket.number}">1</td>
+            <td th:text="${ticket.cost}">50.0</td>
+            <td th:text="${ticket.status}">FREE</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a th:href="@{/events}">Back to Event List</a>
+
+<p style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: darkblue;">
+    Logged in as: <span th:text="${#authentication.name}">user</span>
+</p>
+</body>
+</html>

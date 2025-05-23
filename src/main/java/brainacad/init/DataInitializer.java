@@ -11,6 +11,7 @@ import brainacad.services.EventService;
 import brainacad.services.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Profile("dev")
 public class DataInitializer implements CommandLineRunner
 {
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+</head>
+<body>
+<h2>All Events</h2>
+
+<a sec:authorize="hasRole('ROLE_ADMIN')" href="/events/add">Add New Event</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Place</th>
+        <th>Tickets</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.id}">1</td>
+        <td th:text="${event.name}">Event Name</td>
+        <td th:text="${event.eventDate}">2025-01-01</td>
+        <td>
+            <span th:text="${event.place.name}">Place Name</span>,
+            <span th:text="${event.place.address}">Address</span>
+        </td>
+        <td th:text="${event.tickets.size()}">0</td>
+        <td>
+            <a th:href="@{'/events/details/' + ${event.id}}">View</a>
+            <span sec:authorize="hasRole('ROLE_ADMIN')">
+                |
+                <a th:href="@{'/events/delete/confirm/' + ${event.id}}">Delete</a>
+            </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/">← Back to Home</a>
+
+<p style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: darkblue;">
+    Logged in as: <span th:text="${#authentication.name}">user</span>
+</p>
+</body>
+</html>

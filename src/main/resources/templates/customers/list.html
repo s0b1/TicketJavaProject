@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer List</title>
+</head>
+<body>
+<h2>Customer List</h2>
+
+<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/customers/add">Add New Customer</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone number</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.id}">1</td>
+        <td th:text="${customer.name}">John Doe</td>
+        <td th:text="${customer.email}">john@example.com</td>
+        <td th:text="${customer.phone}">Phone</td>
+        <td>
+            <span sec:authorize="hasRole('ROLE_ADMIN')">
+                <a th:href="@{'/customers/edit/' + ${customer.id}}">Edit</a> |
+                <a th:href="@{/customers/delete/confirm/{id}(id=${customer.id})}">Delete</a>
+            </span>
+        </td>
+    </tr>
+</table>
+
+<a href="/">← Back to Home</a>
+
+<p style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: darkblue;">
+    Logged in as: <span th:text="${#authentication.name}">user</span>
+</p>
+</body>
+</html>

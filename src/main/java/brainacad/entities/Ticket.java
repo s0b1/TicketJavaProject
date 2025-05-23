@@ -20,6 +20,7 @@ public class Ticket
     private TicketStatus status = TicketStatus.FREE;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = true)
     private Customer customer;
 
     @ManyToOne

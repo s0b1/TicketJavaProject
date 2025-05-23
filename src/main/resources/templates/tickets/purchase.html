@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase Ticket</title>
+</head>
+<body>
+<h2>Purchase Ticket</h2>
+
+<form th:action="@{/tickets/purchase}" method="post">
+    <input type="hidden" th:name="ticketId" th:value="${ticket.id}" />
+
+    <label for="customerId">Select Customer:</label>
+    <select name="customerId" id="customerId">
+        <option th:each="customer : ${customers}"
+                th:value="${customer.id}"
+                th:text="${customer.name} + ' (' + ${customer.email} + ')'">
+        </option>
+    </select>
+
+    <br><br>
+    <button type="submit">Confirm Purchase</button>
+</form>
+
+<a href="/tickets">← Back to Ticket list</a>
+
+<p style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: darkblue;">
+    Logged in as: <span th:text="${#authentication.name}">user</span>
+</p>
+</body>
+</html>

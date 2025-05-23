@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket System Home</title>
+</head>
+<body>
+<h1>Welcome to Ticket System!</h1>
+
+<div th:if="${#authorization.expression('isAuthenticated()')}">
+    <p>Hello, <span th:text="${#authentication.name}">user</span>!</p>
+    <a href="/customers">Customers</a><br>
+    <a href="/tickets">Tickets</a><br>
+    <a href="/events">Events</a><br>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+
+<p style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: darkblue;">
+    Logged in as: <span th:text="${#authentication.name}">user</span>
+</p>
+</body>
+</html>

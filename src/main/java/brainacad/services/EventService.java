@@ -11,14 +11,13 @@ import brainacad.repositories.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
-public class EventService
-{
+public class EventService {
 
     private final EventRepository eventRepository;
     private final TicketRepository ticketRepository;
@@ -35,10 +34,8 @@ public class EventService
 
         List<Ticket> tickets = new ArrayList<>();
         int seatNumber = 1;
-        for (TicketPackDTO pack : dto.getTicketPacks())
-        {
-            for (int i = 0; i < pack.getCount(); i++)
-            {
+        for (TicketPackDTO pack : dto.getTicketPacks()) {
+            for (int i = 0; i < pack.getCount(); i++) {
                 Ticket ticket = new Ticket();
                 ticket.setCost(pack.getCost());
                 ticket.setNumber(seatNumber++);
@@ -57,5 +54,14 @@ public class EventService
         return eventRepository.findByEventDateAfterOrderByEventDateAsc(LocalDate.now());
     }
 
+    public Event getById(Long id)
+    {
+        return eventRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found with ID: " + id));
+    }
 
+    public void deleteById(Long id)
+    {
+        eventRepository.deleteById(id);
+    }
 }

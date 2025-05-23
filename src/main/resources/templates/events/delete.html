@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Event</title>
+</head>
+<body>
+
+<h2>Confirm Event Deletion</h2>
+
+<p>Are you sure you want to delete event <strong th:text="${event.name}">[Event Name]</strong>?</p>
+
+<form th:action="@{/events/delete/{id}(id=${event.id})}" method="post">
+    <input type="hidden" name="_method" value="delete" />
+    <button type="submit">Yes, Delete</button>
+    <a href="/events">Cancel</a>
+</form>
+
+<p style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: darkblue;">
+    Logged in as: <span th:text="${#authentication.name}">user</span>
+</p>
+</body>
+</html>

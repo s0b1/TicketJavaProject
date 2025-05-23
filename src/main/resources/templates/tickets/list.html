@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Tickets</title>
+</head>
+<body>
+<h2>Available Tickets</h2>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Cost</th>
+        <th>Status</th>
+        <th>Event</th>
+        <th>Customer</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="ticket : ${tickets}">
+        <td th:text="${ticket.id}">ID</td>
+        <td th:text="${ticket.cost}">Cost</td>
+        <td th:text="${ticket.status}">Status</td>
+        <td th:text="${ticket.event.name}">Event</td>
+        <td th:text="${ticket.customer?.name} ?: 'Unassigned'">Customer</td>
+        <td>
+            <span sec:authorize="isAuthenticated()">
+                <a th:href="@{'/tickets/confirm/' + ${ticket.id}}">Purchase</a>
+            </span>
+        </td>
+    </tr>
+</table>
+
+<a href="/">← Back to Home</a>
+
+<p style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: darkblue;">
+    Logged in as: <span th:text="${#authentication.name}">user</span>
+</p>
+</body>
+</html>
